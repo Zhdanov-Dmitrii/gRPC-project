@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "api.proto";
+
+
+message KeyValue {
+  int32 id = 1;
+  string val = 2;
+}
+
+message KeyValues {
+  repeated KeyValue keyValues = 1;
+}
+
+message GetKeyValueRequest {
+  int32 id = 1;
+}
+
+message PutKeyValueRequest {
+  int32 id = 1;
+  string val = 2;
+}
+
+message DeleteKeyValue {
+  int32 id = 3;
+}
+
+message PagingRequest {
+  int32 pageNumber = 1;
+  int32 pageLength = 2;
+}
+
+service KeyValueService {
+  rpc FindById (GetKeyValueRequest) returns (KeyValue) {}
+  rpc Put (PutKeyValueRequest) returns (KeyValue) {}
+  rpc Delete (DeleteKeyValue) returns (KeyValue){}
+  rpc ManyKeyValues (PagingRequest) returns (KeyValues) {}
+}
